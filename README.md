@@ -125,6 +125,12 @@ next-prisma/
 ### Generate Client
 
 ```bash
+pnpm postinstall
+```
+
+or
+
+```bash
 pnpm prisma generate
 ```
 
