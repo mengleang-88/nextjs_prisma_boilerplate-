@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  database:
+    image: 'bitnamilegacy/mongodb:4.4.15'
+    environment:
+      MONGODB_DATABASE: ${MONGO_INITDB_DATABASE}
+      MONGODB_ADVERTISED_HOSTNAME: database
+      MONGODB_REPLICA_SET_MODE: primary
+      ALLOW_EMPTY_PASSWORD: yes
+    volumes:
+      - mongodb_data:/bitnami/mongodb
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    ports:
+      - '27017:27017'
+volumes:
+  mongodb_data:
