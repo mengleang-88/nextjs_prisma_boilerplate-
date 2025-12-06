@@ -5,12 +5,10 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-let prisma: PrismaClient;
-
 if (!global.prisma) {
   global.prisma = new PrismaClient();
 }
-prisma = global.prisma;
+const prisma: PrismaClient = global.prisma;
 
 export { prisma };
     

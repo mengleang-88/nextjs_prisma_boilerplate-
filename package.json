@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently -n docker,server -c green,blue \"docker compose up -d && docker compose logs -f\" \"next dev\"",
+    "dev:prisma": "prisma generate",
     "build": "next build",
     "postinstall": "prisma generate",
     "start": "next start",
@@ -11,6 +12,7 @@
   },
   "dependencies": {
     "@prisma/client": "~6.19.0",
+    "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
     "next": "16.0.7",
     "prisma": "~6.19.0",
