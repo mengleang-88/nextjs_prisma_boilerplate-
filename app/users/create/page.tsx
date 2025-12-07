@@ -2,7 +2,7 @@
 
 import { createUser } from '@/service/actions/userActions';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function CreateUserPage() {
@@ -10,13 +10,18 @@ export default function CreateUserPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    const user = typeof window !== 'undefined' ? localStorage.getItem('user') : null;
+    if (!user) {
+      router.push('/login');
+    }
+  }, [router]);
+
   async function handleSubmit(formData: FormData) {
     setError(null);
     setIsSubmitting(true);
-
     try {
       const result = await createUser(formData);
-
       if (result.success) {
         router.push('/users');
         router.refresh();
